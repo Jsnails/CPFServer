@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPFServer", "CPFServer\CPFServer.vcxproj", "{89D755F2-9AB7-4A20-A35A-488987641D29}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPFDataPacketParse", "CPFServer\CPFDataPacketParse\CPFDataPacketParse.vcxproj", "{2E7B9C21-B76D-4A8A-8E4C-72D0125F1ACB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{89D755F2-9AB7-4A20-A35A-488987641D29}.Debug|Win32.Build.0 = Debug|Win32
 		{89D755F2-9AB7-4A20-A35A-488987641D29}.Release|Win32.ActiveCfg = Release|Win32
 		{89D755F2-9AB7-4A20-A35A-488987641D29}.Release|Win32.Build.0 = Release|Win32
+		{2E7B9C21-B76D-4A8A-8E4C-72D0125F1ACB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2E7B9C21-B76D-4A8A-8E4C-72D0125F1ACB}.Debug|Win32.Build.0 = Debug|Win32
+		{2E7B9C21-B76D-4A8A-8E4C-72D0125F1ACB}.Release|Win32.ActiveCfg = Release|Win32
+		{2E7B9C21-B76D-4A8A-8E4C-72D0125F1ACB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

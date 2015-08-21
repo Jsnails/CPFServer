@@ -19,6 +19,9 @@
     <Filter Include="Common">
       <UniqueIdentifier>{b3f52b1e-b4c1-48ee-956f-e95ae26e3d8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IObject">
+      <UniqueIdentifier>{60b6801f-f9db-4364-98a2-8a6cf8a02932}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPF_Main.cpp">
@@ -36,6 +39,9 @@
     <ClCompile Include="iocp\CPF_IOCPServer.cpp">
       <Filter>IOCP</Filter>
     </ClCompile>
+    <ClCompile Include="CPF_ParsePacketHander.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="iocp\CPF_IOCP.H">
@@ -52,6 +58,15 @@
     </ClInclude>
     <ClInclude Include="iocp\CPF_IOCPServer.h">
       <Filter>IOCP</Filter>
+    </ClInclude>
+    <ClInclude Include="CPF_ParsePacketHander.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CPFDataPacketParse\CPF_ParseDataPacketBase.h">
+      <Filter>IObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CPFDataPacketParse\CPF_DataPacketParse.h">
+      <Filter>IObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

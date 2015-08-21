@@ -9,4 +9,3 @@ CPF_Base::~CPF_Base()
 {
 
 }
-

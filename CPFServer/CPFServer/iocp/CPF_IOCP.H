@@ -4,6 +4,8 @@
 #ifndef __IOCP_H__
 #define __IOCP_H__
 
+#define  _CRT_SECURE_NO_WARNINGS
+
 #include <winsock2.h>
 #include <windows.h>
 #include <Mswsock.h>
@@ -56,8 +58,8 @@ public:
 	~CIOCPServer();
 
 	// 开始服务
-	BOOL Start(int nPort = 10090, int nMaxConnections = 2000, 
-			int nMaxFreeBuffers = 200, int nMaxFreeContexts = 100, int nInitialReads = 4);
+	BOOL StartServer(int nPort = 10090, int nMaxConnections = 10000,int nMaxFreeBuffers = 10000, int nMaxFreeContexts = 10000, int nInitialReads = 4);
+
 	// 停止服务
 	void Shutdown();
 

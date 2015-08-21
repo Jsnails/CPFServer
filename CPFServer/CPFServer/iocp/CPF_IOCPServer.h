@@ -11,7 +11,7 @@ public:
 
     /************************************************************************/
     /*// 事件通知函数                                                       */
-
+    /************************************************************************/
     // 建立了一个新的连接
     void OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
     // 一个连接关闭
@@ -22,7 +22,11 @@ public:
     void OnReadCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
     // 一个连接上的写操作完成
     void OnWriteCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
+
     /************************************************************************/
+    /*发送事件                                                              */
+    /************************************************************************/
+    virtual void SendToClient(unsigned long lConnectID, const char* pBuffer, const long lLen);
 };
 
 #endif __CPF_IOCPServer_H_

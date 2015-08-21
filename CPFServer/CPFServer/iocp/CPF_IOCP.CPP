@@ -86,8 +86,7 @@ CIOCPBuffer *CIOCPServer::AllocateBuffer(int nLen)
 	::EnterCriticalSection(&m_FreeBufferListLock);
 	if(m_pFreeBufferList == NULL)  // 内存池为空，申请新的内存
 	{
-		pBuffer = (CIOCPBuffer *)::HeapAlloc(GetProcessHeap(), 
-						HEAP_ZERO_MEMORY, sizeof(CIOCPBuffer) + BUFFER_SIZE);
+		pBuffer = (CIOCPBuffer *)::HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(CIOCPBuffer) + BUFFER_SIZE);
 	}
 	else	// 从内存池中取一块来使用
 	{
@@ -534,8 +533,7 @@ BOOL CIOCPServer::PostSend(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
 }
 
 
-BOOL CIOCPServer::Start(int nPort, int nMaxConnections, 
-			int nMaxFreeBuffers, int nMaxFreeContexts, int nInitialReads)
+BOOL CIOCPServer::StartServer(int nPort, int nMaxConnections,int nMaxFreeBuffers, int nMaxFreeContexts, int nInitialReads)
 {
 	// 检查服务是否已经启动
 	if(m_bServerStarted)
@@ -543,10 +541,8 @@ BOOL CIOCPServer::Start(int nPort, int nMaxConnections,
 
 	// 保存用户参数
 	m_nPort = nPort;
-	m_nMaxConnections = 10000;
-	m_nMaxFreeBuffers = 10000;
-    //m_nMaxFreeContexts = nMaxFreeContexts;
-    m_nMaxFreeContexts = 10000;
+    m_nMaxConnections  = nMaxConnections;
+    m_nMaxFreeContexts = nMaxFreeContexts;
 	m_nInitialReads = nInitialReads;
 
 	// 初始化状态变量
@@ -765,8 +761,7 @@ DWORD WINAPI CIOCPServer::_WorkerThreadProc(LPVOID lpParam)
 	while(TRUE)
 	{
 		// 在关联到此完成端口的所有套节字上等待I/O完成
-		BOOL bOK = ::GetQueuedCompletionStatus(pThis->m_hCompletion, 
-					&dwTrans, (LPDWORD)&dwKey, (LPOVERLAPPED*)&lpol, WSA_INFINITE);
+		BOOL bOK = ::GetQueuedCompletionStatus(pThis->m_hCompletion,&dwTrans, (LPDWORD)&dwKey, (LPOVERLAPPED*)&lpol, WSA_INFINITE);
 
 		if(dwTrans == -1) // 用户通知退出
 		{
