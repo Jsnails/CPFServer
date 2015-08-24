@@ -57,6 +57,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CPFDataPacketParse.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -79,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="common\CPF_Base.cpp" />
+    <ClCompile Include="common\CPF_IBuff.cpp" />
     <ClCompile Include="common\CPF_ICommon.cpp" />
     <ClCompile Include="CPF_Main.cpp" />
     <ClCompile Include="iocp\CPF_IOCP.CPP" />
@@ -87,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CPF_Base.h" />
+    <ClInclude Include="common\CPF_IBuff.h" />
     <ClInclude Include="common\CPF_ICommon.h" />
     <ClInclude Include="common\CPF_typedef.h" />
     <ClInclude Include="CPFDataPacketParse\CPF_DataPacketParse.h" />

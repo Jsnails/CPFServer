@@ -22,6 +22,12 @@
     <Filter Include="IObject">
       <UniqueIdentifier>{60b6801f-f9db-4364-98a2-8a6cf8a02932}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DataPool">
+      <UniqueIdentifier>{8c8656c0-3a34-427f-a814-552ac0e1de2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RemoteCtrl">
+      <UniqueIdentifier>{fb117c44-2eef-40d8-a537-79273bcf5b4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPF_Main.cpp">
@@ -39,8 +45,11 @@
     <ClCompile Include="iocp\CPF_IOCPServer.cpp">
       <Filter>IOCP</Filter>
     </ClCompile>
+    <ClCompile Include="common\CPF_IBuff.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
     <ClCompile Include="CPF_ParsePacketHander.cpp">
-      <Filter>源文件</Filter>
+      <Filter>RemoteCtrl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,14 +68,17 @@
     <ClInclude Include="iocp\CPF_IOCPServer.h">
       <Filter>IOCP</Filter>
     </ClInclude>
-    <ClInclude Include="CPF_ParsePacketHander.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="CPFDataPacketParse\CPF_ParseDataPacketBase.h">
       <Filter>IObject</Filter>
     </ClInclude>
     <ClInclude Include="CPFDataPacketParse\CPF_DataPacketParse.h">
       <Filter>IObject</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CPF_IBuff.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CPF_ParsePacketHander.h">
+      <Filter>RemoteCtrl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

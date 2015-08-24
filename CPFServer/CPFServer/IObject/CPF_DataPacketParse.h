@@ -19,7 +19,7 @@ public:
     CPF_DataPacketParse();
     virtual ~CPF_DataPacketParse();
 
-    bool OneConnect(CPF_UINT  ulConnectID, CPF_IBuff *pUserData);//返回false，关闭客户端连接
+    bool OneConnect(CPF_UINT  ulConnectID, CPF_IBuff *pUserData);//返回false，关闭客户端连接，此函数作为用户连接验证使用。
     void OneDisConnect(CPF_UINT ulConnectID);
 };
 #endif 

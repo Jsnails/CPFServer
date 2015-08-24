@@ -2,13 +2,19 @@
 #define __CPF_IOCPServer_H_
 
 #include "CPF_IOCP.H"
+#include "../common/CPF_typedef.h"
+#include <map>
+using namespace std;
 
+class CPF_DataPacketParse;
 class CPF_IOCPServer :public CIOCPServer
 { 
 public:
     CPF_IOCPServer();
     ~CPF_IOCPServer();
 
+    void InitModule();
+    void UnitModule();
     /************************************************************************/
     /*// 事件通知函数                                                       */
     /************************************************************************/
@@ -26,7 +32,18 @@ public:
     /************************************************************************/
     /*发送事件                                                              */
     /************************************************************************/
-    virtual void SendToClient(unsigned long lConnectID, const char* pBuffer, const long lLen);
+    virtual void SendToClient(CPF_UINT lConnectID, const char* pBuffer, const long lLen);
+
+protected:
+    CIOCPContext *OnConnectManagerAdd(CIOCPContext *pContext);
+    CIOCPContext *OnConnectManagerSub(CIOCPContext *pContext);
+    CIOCPContext *OnConnectManagerFind(CPF_UINT ulConnectID);
+    CPF_UINT      OnConnectIDFind(CIOCPContext *pContext);
+private:
+    CPF_UINT                         m_iConnectID;//连接计数,也就是整个系统的连接ID
+    CPF_DataPacketParse              *m_pPacketParse;
+    map<CPF_UINT, CIOCPContext *>    m_mapIOCPContext; //
+    CRITICAL_SECTION                 m_mapContextSection;
 };
 
 #endif __CPF_IOCPServer_H_

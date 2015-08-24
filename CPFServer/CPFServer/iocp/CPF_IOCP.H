@@ -143,21 +143,21 @@ protected:
 	HANDLE m_hRepostEvent;
 	LONG m_nRepostCount;
 
-	int m_nPort;				// 服务器监听的端口
+	int m_nPort;				                            //服务器监听的端口
 
-	int m_nInitialAccepts;
-	int m_nInitialReads;
-	int m_nMaxAccepts;
+	int m_nInitialAccepts;                                  //最初投递的监听套接字
+	int m_nInitialReads;                                    //未用变量
+	int m_nMaxAccepts;                                      //
 	int m_nMaxSends;
 	int m_nMaxFreeBuffers;
 	int m_nMaxFreeContexts;
 	int m_nMaxConnections;
 
-	HANDLE m_hListenThread;			// 监听线程
-	HANDLE m_hCompletion;			// 完成端口句柄
-	SOCKET m_sListen;				// 监听套节字句柄
-	LPFN_ACCEPTEX m_lpfnAcceptEx;	// AcceptEx函数地址
-	LPFN_GETACCEPTEXSOCKADDRS m_lpfnGetAcceptExSockaddrs; // GetAcceptExSockaddrs函数地址
+	HANDLE m_hListenThread;			                        // 监听线程
+	HANDLE m_hCompletion;			                        // 完成端口句柄
+	SOCKET m_sListen;				                        // 监听套节字句柄
+	LPFN_ACCEPTEX m_lpfnAcceptEx;	                        // AcceptEx函数地址
+	LPFN_GETACCEPTEXSOCKADDRS m_lpfnGetAcceptExSockaddrs;   // GetAcceptExSockaddrs函数地址
 
 	BOOL m_bShutDown;		// 用于通知监听线程退出
 	BOOL m_bServerStarted;	// 记录服务是否启动

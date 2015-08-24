@@ -10,32 +10,13 @@ CPF_ParsePacketHander::~CPF_ParsePacketHander()
 {
 }
 
-void CPF_ParsePacketHander::SendToClient(CPFDataPacket *pPacketData)
+bool CPF_ParsePacketHander::OneConnect(unsigned long ulConnectID, CPF_IBuff *pUserData)
 {
 
+    return true;
 }
 
-void CPF_ParsePacketHander::OnConnectionEstablished(CPFDataPacket *pPacketData)
-{
-
-}
-
-void CPF_ParsePacketHander::OnConnectionClosing(CPFDataPacket *pPacketData)
-{
-
-}
-
-void CPF_ParsePacketHander::OnConnectionError(unsigned long lConnectID, int nError)
-{
-
-}
-
-void CPF_ParsePacketHander::OnReadCompleted(CPFDataPacket *pPacketData)
-{
-
-}
-
-void CPF_ParsePacketHander::OnWriteCompleted(CPFDataPacket *pPacketData)
+void CPF_ParsePacketHander::OneDisConnect(unsigned long ulConnectID)
 {
 
 }

@@ -49,6 +49,10 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -65,12 +69,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CPF_DataPacketParse.h" />
-    <ClInclude Include="CPF_ParseDataPacketBase.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="CPF_DataPacketParse.cpp" />
     <ClCompile Include="CPF_ParseDataPacketBase.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CPF_DataPacketParse.h" />
+    <ClInclude Include="CPF_ParseDataPacketBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
