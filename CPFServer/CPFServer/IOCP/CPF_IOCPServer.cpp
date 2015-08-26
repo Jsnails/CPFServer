@@ -47,8 +47,8 @@ void CPF_IOCPServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer
     if (m_pPacketParse)
     {
         CPF_IBuff IBuff;
-        IBuff.buff = pBuffer->buff;
-        IBuff.nLen = pBuffer->nLen;
+        IBuff.m_pbuff = pBuffer->buff;
+        IBuff.m_nLen = pBuffer->nLen;
         bConnSuccss = m_pPacketParse->OneConnect(m_iConnectID,&IBuff);
     }
 
