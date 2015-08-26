@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -84,6 +84,7 @@
     <ClCompile Include="common\CPF_IBuff.cpp" />
     <ClCompile Include="common\CPF_ICommon.cpp" />
     <ClCompile Include="CPF_Main.cpp" />
+    <ClCompile Include="DataPool\CPF_IManagerBUffer.cpp" />
     <ClCompile Include="iocp\CPF_IOCP.CPP" />
     <ClCompile Include="iocp\CPF_IOCPServer.cpp" />
     <ClCompile Include="CPF_ParsePacketHander.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="common\CPF_typedef.h" />
     <ClInclude Include="CPFDataPacketParse\CPF_DataPacketParse.h" />
     <ClInclude Include="CPFDataPacketParse\CPF_ParseDataPacketBase.h" />
+    <ClInclude Include="DataPool\CPF_IManagerBUffer.h" />
     <ClInclude Include="iocp\CPF_IOCP.H" />
     <ClInclude Include="iocp\CPF_IOCPServer.h" />
     <ClInclude Include="CPF_ParsePacketHander.h" />

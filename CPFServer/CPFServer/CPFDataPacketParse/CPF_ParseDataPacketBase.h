@@ -13,6 +13,7 @@
 
 #include "../common/CPF_IBuff.h"
 #include "../common/CPF_typedef.h"
+#include "../DataPool/CPF_IManagerBUffer.h"
 
 #ifdef WIN32
 class CPF_DLL_EXPORT CPF_ParseDataPacketBase
@@ -26,6 +27,10 @@ public:
 
     virtual bool OneConnect(CPF_UINT  ulConnectID, CPF_IBuff *pUserData) = 0;
     virtual void OneDisConnect(CPF_UINT ulConnectID) = 0;
+    virtual bool CheckRecvPacketParse(CPF_IManagerBUffer *pIManagerBuff, CPF_UINT uConnectID, CPF_IBuff *pBuffer) = 0;
+    virtual CPF_PACKETMODULE  GetPacketModule() = 0;
+protected:
+    CPF_PACKETMODULE m_iTransModule; //数据传输模型
 };
 
 #endif

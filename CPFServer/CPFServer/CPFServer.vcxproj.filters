@@ -51,6 +51,9 @@
     <ClCompile Include="CPF_ParsePacketHander.cpp">
       <Filter>RemoteCtrl</Filter>
     </ClCompile>
+    <ClCompile Include="DataPool\CPF_IManagerBUffer.cpp">
+      <Filter>DataPool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="iocp\CPF_IOCP.H">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="CPF_ParsePacketHander.h">
       <Filter>RemoteCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="DataPool\CPF_IManagerBUffer.h">
+      <Filter>DataPool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

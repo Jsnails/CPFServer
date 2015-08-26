@@ -11,7 +11,7 @@ typedef unsigned long CPF_ULONG;
 #define MAX_THREAD	2			    // I/O服务线程的数量
 
 
-#define CPF_TEST   //启动测试模式
+//#define CPF_TEST   //启动测试模式
 
 
 struct CPFDataPacket
@@ -26,5 +26,13 @@ struct CPFDataPacket
         lLen = 0;
     }
 };
+
+enum CPF_PACKETMODULE
+{
+    CPF_GETSTREAM = 1,  //数据流模式
+    CPF_GETHEAD,        //数据包模式
+    CPF_MODULEMAX,
+};
+
 
 #endif __CPF_TYPEDEF_H_

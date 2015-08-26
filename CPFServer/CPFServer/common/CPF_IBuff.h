@@ -7,8 +7,9 @@ public:
     CPF_IBuff();
     ~CPF_IBuff();
 
-    char *buff;				// I/O操作使用的缓冲区
-    int nLen;				// buff缓冲区（使用的）大小
+    char *m_pbuff;				// I/O操作使用的缓冲区
+    int  m_nLen;				    // buff缓冲区（使用的）大小
+
 };
 
 #endif //__CPF_IBuff_H_

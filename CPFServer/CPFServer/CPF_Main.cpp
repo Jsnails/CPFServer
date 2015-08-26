@@ -15,15 +15,7 @@ void main()
 
     // 开启服务
     pServer->InitModule();
-    if (pServer->StartServer())
-    {
-        printf(" 服务器开启成功... \n");
-    }
-    else
-    {
-        printf(" 服务器开启失败！\n");
-        return;
-    }
+    pServer->StartServer();
 
     getchar();
     // 关闭服务
@@ -33,6 +25,10 @@ void main()
     printf(" 服务器关闭 \n ");
 }
 #else
-
+int main()
+{
+    getchar();
+    return 0;
+}
 #endif
 

@@ -21,5 +21,7 @@ public:
 
     bool OneConnect(CPF_UINT  ulConnectID, CPF_IBuff *pUserData);//返回false，关闭客户端连接
     void OneDisConnect(CPF_UINT ulConnectID);
+    bool CheckRecvPacketParse(CPF_IManagerBUffer *pIManagerBuff, CPF_UINT uConnectID, CPF_IBuff *pBuffer); //检测接收到的数据包是否完整
+    CPF_PACKETMODULE  GetPacketModule();
 };
 #endif 

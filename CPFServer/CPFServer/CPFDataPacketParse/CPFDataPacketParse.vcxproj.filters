@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="DataPool">
+      <UniqueIdentifier>{01491e0a-8912-4699-b232-7ab1379e3f22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{222a1f76-9ed7-452b-a585-4b606df73697}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPF_DataPacketParse.cpp">
@@ -21,6 +27,21 @@
     <ClCompile Include="CPF_ParseDataPacketBase.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\DataPool\CPF_IManagerBUffer.cpp">
+      <Filter>DataPool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\CPF_Base.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\CPF_IBuff.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\CPF_ICommon.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\CPF_IPacketData.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPF_DataPacketParse.h">
@@ -28,6 +49,24 @@
     </ClInclude>
     <ClInclude Include="CPF_ParseDataPacketBase.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DataPool\CPF_IManagerBUffer.h">
+      <Filter>DataPool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\CPF_Base.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\CPF_IBuff.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\CPF_ICommon.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\CPF_IPacketData.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\CPF_typedef.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

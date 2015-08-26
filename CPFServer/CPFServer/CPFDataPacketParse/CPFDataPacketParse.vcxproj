@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -69,10 +69,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\common\CPF_Base.cpp" />
+    <ClCompile Include="..\common\CPF_IBuff.cpp" />
+    <ClCompile Include="..\common\CPF_ICommon.cpp" />
+    <ClCompile Include="..\common\CPF_IPacketData.cpp" />
+    <ClCompile Include="..\DataPool\CPF_IManagerBUffer.cpp" />
     <ClCompile Include="CPF_DataPacketParse.cpp" />
     <ClCompile Include="CPF_ParseDataPacketBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\CPF_Base.h" />
+    <ClInclude Include="..\common\CPF_IBuff.h" />
+    <ClInclude Include="..\common\CPF_ICommon.h" />
+    <ClInclude Include="..\common\CPF_IPacketData.h" />
+    <ClInclude Include="..\common\CPF_typedef.h" />
+    <ClInclude Include="..\DataPool\CPF_IManagerBUffer.h" />
     <ClInclude Include="CPF_DataPacketParse.h" />
     <ClInclude Include="CPF_ParseDataPacketBase.h" />
   </ItemGroup>
