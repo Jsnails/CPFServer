@@ -1,0 +1,57 @@
+# depslib dependency file v1.0
+1440659662 source:/home/lili/CPFServer/CPFServer/CPF_Main.cpp
+	<stdio.h>
+	"./IOCP/CPF_IOCPServer.h"
+	"./EPOLL/CPF_EPOLL.h"
+
+1440745389 /home/lili/CPFServer/CPFServer/EPOLL/CPF_EPOLL.h
+	<deque>
+	<map>
+	<vector>
+	<semaphore.h>
+	<time.h>
+	<sys/time.h>
+	<sys/shm.h>
+	<errno.h>
+	<sys/types.h>
+	<fcntl.h>
+	<stdio.h>
+	<string.h>
+	<cstring>
+	<cstdio>
+	<unistd.h>
+	<signal.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<cstdlib>
+	<cctype>
+	<sstream>
+	<utility>
+	<stdexcept>
+	<sys/socket.h>
+	<sys/epoll.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<iostream>
+
+1440747578 source:/home/lili/CPFServer/CPFServer/EPOLL/CPF_EPOLL.cpp
+	"CPF_EPOLL.h"
+	<pthread.h>
+
+1440581339 source:/home/lili/CPFServer/CPFServer/EPOLL/CPF_EPOLLServer.cpp
+	"CPF_EPOLLServer.h"
+
+1440581310 /home/lili/CPFServer/CPFServer/EPOLL/CPF_EPOLLServer.h
+
+1440409264 /home/lili/CPFServer/CPFServer/IOCP/CPF_IOCPServer.h
+	"CPF_IOCP.H"
+	"../common/CPF_typedef.h"
+	<map>
+
+1440580477 /home/lili/CPFServer/CPFServer/IOCP/CPF_IOCP.H
+	<winsock2.h>
+	<windows.h>
+	<Mswsock.h>
+
+1440566052 /home/lili/CPFServer/CPFServer/common/CPF_typedef.h
+

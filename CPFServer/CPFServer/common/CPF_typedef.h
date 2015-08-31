@@ -4,20 +4,22 @@
 typedef unsigned int CPF_UINT;
 typedef unsigned long CPF_ULONG;
 
-#define OP_ACCEPT	1
-#define OP_WRITE	2
-#define OP_READ		3
-#define BUFFER_SIZE 1024*12		    // I/O请求的缓冲区大小
-#define MAX_THREAD	2			    // I/O服务线程的数量
-
+enum CPF_OP_SERVER
+{
+    OP_ACCEPT = 1,
+    OP_WRITE,
+    OP_READ,
+    OP_DISCONN,
+    OP_ERROR,
+    OP_MAX,
+};
 
 //#define CPF_TEST   //启动测试模式
 
-
 struct CPFDataPacket
-{ 
+{
     unsigned long lConnectID;
-    char *pBuffer; 
+    char *pBuffer;
     long lLen;
     CPFDataPacket()
     {
@@ -34,5 +36,14 @@ enum CPF_PACKETMODULE
     CPF_MODULEMAX,
 };
 
+#ifdef WIN32
 
-#endif __CPF_TYPEDEF_H_
+#define BUFFER_SIZE 1024*12		    // I/O请求的缓冲区大小
+#define MAX_THREAD	2			    // I/O服务线程的数量
+
+#else
+
+
+#endif
+
+#endif //__CPF_TYPEDEF_H_

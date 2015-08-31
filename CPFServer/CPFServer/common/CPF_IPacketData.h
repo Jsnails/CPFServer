@@ -8,4 +8,4 @@ public:
     ~CPF_IPacketData();
 };
 
-#endif __CPF_IPacketData_H_
+#endif //__CPF_IPacketData_H_

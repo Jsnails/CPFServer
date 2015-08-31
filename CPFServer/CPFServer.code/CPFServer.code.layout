@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="../CPFServer/CPF_Main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="370" topLine="0" />
+	</File>
+	<File name="../CPFServer/EPOLL/CPF_EPOLL.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="21598" topLine="287" />
+	</File>
+	<File name="../CPFServer/EPOLL/CPF_EPOLL.h" open="1" top="0" tabpos="3">
+		<Cursor position="2187" topLine="70" />
+	</File>
+</CodeBlocks_layout_file>

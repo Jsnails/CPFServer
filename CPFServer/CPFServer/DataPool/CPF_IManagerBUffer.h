@@ -3,11 +3,16 @@
 
 #include "../common/CPF_IBuff.h"
 #include "../common/CPF_typedef.h"
+#ifdef WIN32
 #include <windows.h>
+#else
+#include <pthread.h>
+#include <string.h>
+#endif
 #include <map>
 using namespace std;
 
-class CPF_IManagerBUffer 
+class CPF_IManagerBUffer
 {
 public:
    static       CPF_IManagerBUffer *GetInstance();
@@ -24,7 +29,12 @@ protected:
 private:
     static CPF_IManagerBUffer   *m_pInstance;
     map<CPF_UINT, CPF_IBuff>    m_mapIBuffer;
+#ifdef WIN32
     CRITICAL_SECTION            m_mapIBufferSection;
+#else
+    pthread_mutex_t m_mapIBuffMutex;
+#endif
+
 };
 
 #endif //__CPF_IManagerBUffer_H_

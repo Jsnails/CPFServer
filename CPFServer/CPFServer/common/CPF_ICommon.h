@@ -8,6 +8,6 @@ public:
     CPF_ICommon();
     ~CPF_ICommon();
 public:
-  
+
 };
-#endif __CPF_ICommon_H_
+#endif //__CPF_ICommon_H_

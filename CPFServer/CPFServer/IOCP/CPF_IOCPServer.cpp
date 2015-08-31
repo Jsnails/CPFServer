@@ -94,7 +94,7 @@ void CPF_IOCPServer::OnReadCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffe
     /************************************************************************/
     if (m_pPacketParse)
     {//检测包,分析包
-        //m_pPacketParse->
+        //m_pPacketParse->check
     }
 
     //正确的包,进入模块分发接口
