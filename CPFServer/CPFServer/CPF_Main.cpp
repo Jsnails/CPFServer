@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "CPF_ManagerAllServer.h"
-void main()
+int main()
 {
     CPF_ManagerAllServer *pServer = new CPF_ManagerAllServer;
 
@@ -21,6 +21,7 @@ void main()
     pServer->UnitModule();
     delete pServer;
     printf(" ·şÎñÆ÷¹Ø±Õ \n ");
+    return 0;
 }
 
 

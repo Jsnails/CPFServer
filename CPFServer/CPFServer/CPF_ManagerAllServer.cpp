@@ -1,10 +1,5 @@
-#ifdef WIN32
-#include "./IOCP/CPF_IOCPServer.h"
-#else
-#include "./EPOLL/CPF_EPOLLServer.h"
-#endif
 #include "CPF_ManagerAllServer.h"
-#include "./CPFDataPacketParse/CPF_DataPacketParse.h"
+#include "./IObject/CPF_DataPacketParse.h"
 #include "./DataPool/CPF_IManagerBUffer.h"
 
 
@@ -70,11 +65,18 @@ void CPF_ManagerAllServer::OnReadCompleted(CPF_UINT ulConnectID, CPF_IBuff *pUse
         {
             case CPF_GETSTREAM:
             {
-                                  //数据流通知用户
-                                  if (m_pIOCPServer)
-                                  {
-                                      m_pIOCPServer->SendToClient(ulConnectID, pUserData->m_pbuff, pUserData->m_nLen);
-                                  }
+#ifdef WIN32
+               //数据流通知用户
+               if (m_pIOCPServer)
+               {
+                m_pIOCPServer->SendToClient(ulConnectID, pUserData->m_pbuff, pUserData->m_nLen);
+                }
+#else
+               if(m_pEpollServer)
+               {
+                   m_pEpollServer->SendToClient(ulConnectID, pUserData->m_pbuff, pUserData->m_nLen);
+               }
+ #endif
             }
             break;
             case CPF_GETHEAD:
@@ -109,9 +111,10 @@ void CPF_ManagerAllServer::InitModule()
     if (m_pEpollServer == NULL)
     {
         m_pEpollServer = new CPF_EPOLLServer;
+        m_pEpollServer->InitModule((CPF_Base *)this);
     }
 #endif
-    
+
 }
 
 void CPF_ManagerAllServer::UnitModule()

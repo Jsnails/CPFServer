@@ -42,7 +42,7 @@ bool CPF_DataPacketParse::CheckRecvPacketParse(CPF_IManagerBUffer *pIManagerBuff
     Ibuffer.m_pbuff = new char[pBuffer->m_nLen + 1];
     memset(Ibuffer.m_pbuff, 0, pBuffer->m_nLen + 1);
     Ibuffer.m_nLen = pBuffer->m_nLen;
-    memcpy_s(Ibuffer.m_pbuff, pBuffer->m_nLen + 1, pBuffer->m_pbuff, pBuffer->m_nLen);
+    memcpy(Ibuffer.m_pbuff, pBuffer->m_pbuff, pBuffer->m_nLen);
 
     int iLen = 0;
     iLen = pBuffer->m_nLen;
@@ -73,8 +73,8 @@ bool CPF_DataPacketParse::CheckRecvPacketParse(CPF_IManagerBUffer *pIManagerBuff
             IBuffTmp.m_pbuff = new char[iLength];
             memset(IBuffTmp.m_pbuff, 0, iLength);
 
-            strcpy_s(IBuffTmp.m_pbuff, iLength, IBuffPop.m_pbuff);
-            strcat_s(IBuffTmp.m_pbuff, iLength, Ibuffer.m_pbuff);
+            strncpy(IBuffTmp.m_pbuff, IBuffPop.m_pbuff,IBuffPop.m_nLen);
+            strncat(IBuffTmp.m_pbuff, Ibuffer.m_pbuff,Ibuffer.m_nLen);
 
             IBuffTmp.m_nLen = pBuffer->m_nLen + IBuffPop.m_nLen;
             pIManagerBuff->CPF_IManagerBufferADD(uConnectID, IBuffTmp);

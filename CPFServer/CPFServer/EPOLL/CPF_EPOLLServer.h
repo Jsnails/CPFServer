@@ -36,8 +36,8 @@ public:
 protected:
     CPF_UINT      OnConnectManagerAdd(CPF_UINT ulConnectID);
     CPF_UINT      OnConnectManagerSub(CPF_UINT ulConnectID);
-    CPF_UINT      OnConnectManagerFind(CPF_UINT ulConnectID);
-    CPF_UINT      OnConnectIDFind(CPF_UINT ulConnectID);
+    CPF_UINT      OnConnectManagerFind(CPF_UINT ulConnectID);//找到对应的socket连接句柄
+    CPF_UINT      OnConnectIDFind(CPF_UINT ulConnectID);     //找到系统生成的ID
 private:
     CPF_UINT                         m_iConnectID;              //连接计数,也就是整个系统的连接ID
     map<CPF_UINT,CPF_UINT>           m_mapEpollContext;

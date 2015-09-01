@@ -40,7 +40,7 @@ enum CPF_PACKETMODULE
 
 #define BUFFER_SIZE 1024*12		    // I/O请求的缓冲区大小
 #define MAX_THREAD	2			    // I/O服务线程的数量
-
+#define _CRT_SECURE_NO_WARNINGS
 #else
 
 

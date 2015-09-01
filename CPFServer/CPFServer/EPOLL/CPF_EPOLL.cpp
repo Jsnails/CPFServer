@@ -69,7 +69,7 @@ void * CPF_EPOLL::AcceptThread(void *pUser)
     struct sockaddr_in cliaddr;
     struct sockaddr_in svraddr;
 
-    unsigned short uListenPort = 5000;
+    unsigned short uListenPort = pThis->m_iSerPort;
     int iBacklogSize = 200;
     int iBackStoreSize = 1024;
 
@@ -80,7 +80,6 @@ void * CPF_EPOLL::AcceptThread(void *pUser)
     if (epfd < 0)
     {
         cout << "AcceptThread, epoll_create fail:" << epfd << ",errno:" << errno << endl;
-
         OnHandleIO(OP_ERROR, 0, NULL, 0, pThis, epfd);
         return NULL;
     }
@@ -90,9 +89,7 @@ void * CPF_EPOLL::AcceptThread(void *pUser)
     if (listenfd < 0)
     {
         cout << "AcceptThread, socket fail:" << epfd << ",errno:" << errno << endl;
-
         close(epfd);
-
         OnHandleIO(OP_ERROR, 0, NULL, 0, pThis, errno);
         return NULL;
     }
@@ -147,8 +144,7 @@ void * CPF_EPOLL::AcceptThread(void *pUser)
         {
             if (events[i].data.fd == listenfd)        //是本监听socket上的事件
             {
-                cout << "AcceptThread, events:" << events[i].events << ",errno:" << errno << endl;
-
+                //cout << "AcceptThread, events:" << events[i].events << ",errno:" << errno << endl;
                 if (events[i].events&EPOLLIN)    //有连接到来
                 {
                     do
@@ -157,7 +153,7 @@ void * CPF_EPOLL::AcceptThread(void *pUser)
                         connfd = accept(listenfd, (sockaddr *)&cliaddr, &clilen);
                         if (connfd > 0)
                         {
-                            cout << "AcceptThread, accept:" << connfd << ",errno:" << errno << ",connect:" << inet_ntoa(cliaddr.sin_addr) << ":" << ntohs(cliaddr.sin_port) << endl;
+                            //cout << "AcceptThread, accept:" << connfd << ",errno:" << errno << ",connect:" << inet_ntoa(cliaddr.sin_addr) << ":" << ntohs(cliaddr.sin_port) << endl;
 
                             //往管道写数据
                             msg.op = 1;
@@ -168,15 +164,13 @@ void * CPF_EPOLL::AcceptThread(void *pUser)
                             if (ret != 14)
                             {
                                 cout << "AcceptThread, write fail:" << ret << ",errno:" << errno << endl;
-
                                 close(connfd);
-
                                 OnHandleIO(OP_ERROR, 0, NULL, 0, pThis, errno);
                             }
                         }
                         else
                         {
-                            cout << "AcceptThread, accept:" << connfd << ",errno:" << errno << endl;
+                            //cout << "AcceptThread, accept:" << connfd << ",errno:" << errno << endl;
 
                             if (errno == EAGAIN)    //没有连接需要接收了
                             {
@@ -369,7 +363,7 @@ void * CPF_EPOLL::ReadThread(void *pUser)
                 {
                     if (msg.op == 1)    //收到新的连接
                     {
-                        cout << "ReadThread,recv connect:" << msg.fd << ",errno:" << errno << endl;
+                        //cout << "ReadThread,recv connect:" << msg.fd << ",errno:" << errno << endl;
 
                         //把socket设置为非阻塞方式
                         OnSetNONblocking(msg.fd);
@@ -454,7 +448,7 @@ void * CPF_EPOLL::ReadThread(void *pUser)
                     nread = read(events[i].data.fd, buf, MAXBUFSIZE);
                     if (nread > 0)    //读到数据
                     {
-                        cout << "ReadThread, read:" << nread << ",errno:" << errno << endl;
+                        //cout << "ReadThread, read:" << nread << ",errno:" << errno << endl;
 
                         itIpPort = mIpPort.find(events[i].data.fd);
                         if (itIpPort != mIpPort.end())
@@ -481,7 +475,7 @@ void * CPF_EPOLL::ReadThread(void *pUser)
                         }
                         else    //客户端主动关闭
                         {
-                            cout << "ReadThread, read:" << nread << ",errno:" << errno << ",peer error" << endl;
+                            //cout << "ReadThread, read:" << nread << ",errno:" << errno << ",peer error" << endl;
 
                             close(events[i].data.fd);
                             epoll_ctl(epfd, EPOLL_CTL_DEL, events[i].data.fd, &ev);
@@ -718,7 +712,7 @@ void CPF_EPOLL::OnHandleIO(CPF_UINT iType, CPF_UINT iConnect, char *pBuff, int i
 
 void CPF_EPOLL::SendText(CPF_UINT iConnID, char *pData, int iLength)
 {
-    send(iConnID, pData, iLength);
+    send(iConnID, pData, iLength,0);
 }
 
 

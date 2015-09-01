@@ -1,14 +1,13 @@
 #ifndef __CPF_ManagerAllServer_H_
 #define __CPF_ManagerAllServer_H_
-
+#ifdef WIN32
+#include "./IOCP/CPF_IOCPServer.h"
+#else
+#include "./EPOLL/CPF_EPOLLServer.h"
+#endif
 #include "common/CPF_Base.h"
 
 class CPF_DataPacketParse;
-#ifdef WIN32
-class CPF_IOCPServer;
-#else
-class CPF_EPOLLServer
-#endif
 class CPF_ManagerAllServer : public CPF_Base
 {
 public:
@@ -42,7 +41,9 @@ private:
 #else
     CPF_EPOLLServer                  *m_pEpollServer;
 #endif
+
 };
+
 #endif //__CPF_ManagerAllServer_H_
 
 
