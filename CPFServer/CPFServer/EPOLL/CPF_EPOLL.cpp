@@ -716,6 +716,12 @@ void CPF_EPOLL::OnHandleIO(CPF_UINT iType, CPF_UINT iConnect, char *pBuff, int i
    }
 }
 
+void CPF_EPOLL::SendText(CPF_UINT iConnID, char *pData, int iLength)
+{
+    send(iConnID, pData, iLength);
+}
+
+
 void CPF_EPOLL::OnConnectionEstablished(CPF_UINT iConnectID, CPF_EPOLLBuffer *pbuff)
 {
 
@@ -740,3 +746,9 @@ void CPF_EPOLL::OnWriteCompleted(CPF_UINT iConnectID, CPF_EPOLLBuffer *pbuff)
 {
 
 }
+
+void CPF_EPOLL::OnCloseAconnect(CPF_UINT uConnect)
+{
+    close(uConnect);
+}
+

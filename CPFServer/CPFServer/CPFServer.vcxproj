@@ -84,6 +84,7 @@
     <ClCompile Include="common\CPF_IBuff.cpp" />
     <ClCompile Include="common\CPF_ICommon.cpp" />
     <ClCompile Include="CPF_Main.cpp" />
+    <ClCompile Include="CPF_ManagerAllServer.cpp" />
     <ClCompile Include="DataPool\CPF_IManagerBUffer.cpp" />
     <ClCompile Include="iocp\CPF_IOCP.CPP" />
     <ClCompile Include="iocp\CPF_IOCPServer.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="common\CPF_typedef.h" />
     <ClInclude Include="CPFDataPacketParse\CPF_DataPacketParse.h" />
     <ClInclude Include="CPFDataPacketParse\CPF_ParseDataPacketBase.h" />
+    <ClInclude Include="CPF_ManagerAllServer.h" />
     <ClInclude Include="DataPool\CPF_IManagerBUffer.h" />
     <ClInclude Include="iocp\CPF_IOCP.H" />
     <ClInclude Include="iocp\CPF_IOCPServer.h" />

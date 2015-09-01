@@ -98,6 +98,7 @@ public:
     void EndServer();
 
     void OnCloseAconnect(CPF_UINT uConnect);
+    void SendText(CPF_UINT iConnID, char *pData, int iLength);
 protected:
     // 建立了一个新的连接
     virtual void OnConnectionEstablished(CPF_UINT  iConnectID, CPF_EPOLLBuffer *pbuff);
@@ -110,7 +111,7 @@ protected:
     // 一个连接上的写操作完成
     virtual void OnWriteCompleted(CPF_UINT  iConnectID, CPF_EPOLLBuffer *pbuff);
 protected:
-    static void Sig_Pro(int signum);
+    static void   Sig_Pro(int signum);
     static void * AcceptThread(void *pUser);
     static void * ReadThread(void *pUser);//读数据线程
 protected:

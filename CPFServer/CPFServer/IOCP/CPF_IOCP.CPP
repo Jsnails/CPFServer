@@ -533,7 +533,7 @@ BOOL CIOCPServer::PostSend(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
 }
 
 
-BOOL CIOCPServer::StartServer(int nPort, int nMaxConnections,int nMaxFreeBuffers, int nMaxFreeContexts, int nInitialReads)
+bool CIOCPServer::StartServer(int nPort, int nMaxConnections,int nMaxFreeBuffers, int nMaxFreeContexts, int nInitialReads)
 {
 	// 检查服务是否已经启动
 	if(m_bServerStarted)
@@ -1029,7 +1029,7 @@ void CIOCPServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int
 }
 
 
-BOOL CIOCPServer::SendText(CIOCPContext *pContext, char *pszText, int nLen)
+bool CIOCPServer::SendText(CIOCPContext *pContext, char *pszText, int nLen)
 {
 	CIOCPBuffer *pBuffer = AllocateBuffer(nLen);
 	if(pBuffer != NULL)
@@ -1037,7 +1037,7 @@ BOOL CIOCPServer::SendText(CIOCPContext *pContext, char *pszText, int nLen)
 		memcpy(pBuffer->buff, pszText, nLen);
 		return PostSend(pContext, pBuffer);
 	}
-	return FALSE;
+	return false;
 }
 
 

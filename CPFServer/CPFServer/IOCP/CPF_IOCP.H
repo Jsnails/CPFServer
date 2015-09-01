@@ -58,7 +58,7 @@ public:
 	~CIOCPServer();
 
 	// 开始服务
-	BOOL StartServer(int nPort = 10090, int nMaxConnections = 10000,int nMaxFreeBuffers = 10000, int nMaxFreeContexts = 10000, int nInitialReads = 4);
+	bool StartServer(int nPort = 10090, int nMaxConnections = 10000,int nMaxFreeBuffers = 10000, int nMaxFreeContexts = 10000, int nInitialReads = 4);
 
 	// 停止服务
 	void Shutdown();
@@ -71,7 +71,7 @@ public:
 	ULONG GetCurrentConnection() { return m_nCurrentConnection; }
 
 	// 向指定客户发送文本
-	BOOL SendText(CIOCPContext *pContext, char *pszText, int nLen); 
+	bool SendText(CIOCPContext *pContext, char *pszText, int nLen); 
 
 protected:
 

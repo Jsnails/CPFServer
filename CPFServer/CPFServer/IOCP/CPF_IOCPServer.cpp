@@ -1,39 +1,30 @@
 #include "CPF_IOCPServer.h"
-#include "../common/CPF_typedef.h"
-#include "../CPFDataPacketParse/CPF_DataPacketParse.h"
+#include "../common/CPF_Base.h"
 #include <stdio.h>
 #include <algorithm>
 
 
 CPF_IOCPServer::CPF_IOCPServer()
 {
-    m_pPacketParse = NULL;
     m_iConnectID = 1;
-
     InitializeCriticalSection(&m_mapContextSection);
 }
 
 CPF_IOCPServer::~CPF_IOCPServer()
 {
     m_mapIOCPContext.clear();
-
     DeleteCriticalSection(&m_mapContextSection);
 }
 
-void CPF_IOCPServer::InitModule()
+
+void CPF_IOCPServer::InitModule(CPF_Base *pBase)
 {
-    if (m_pPacketParse == NULL)
-    {
-        m_pPacketParse = new CPF_DataPacketParse;
-    }
+    m_pManagerServer = pBase;
 }
 
 void CPF_IOCPServer::UnitModule()
 {
-    if (m_pPacketParse)
-    {
-        delete m_pPacketParse;
-    }
+
 }
 
 void CPF_IOCPServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
@@ -44,12 +35,12 @@ void CPF_IOCPServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer
     /************************************************************************/
     /* 用户权限验证入口                                                     */
     /************************************************************************/
-    if (m_pPacketParse)
+    if (m_pManagerServer)
     {
         CPF_IBuff IBuff;
         IBuff.m_pbuff = pBuffer->buff;
         IBuff.m_nLen = pBuffer->nLen;
-        bConnSuccss = m_pPacketParse->OneConnect(m_iConnectID,&IBuff);
+        bConnSuccss = m_pManagerServer->OnConnectionEstablished(m_iConnectID, &IBuff);
     }
 
     /************************************************************************/
@@ -64,21 +55,29 @@ void CPF_IOCPServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer
         CloseAConnection(pContext);
     }
 
-#ifdef CPF_TEST
     SendText(pContext, pBuffer->buff, pBuffer->nLen);//返回用户第一次发送数据
-#endif
 }
 
 void CPF_IOCPServer::OnConnectionClosing(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
 {
    //printf("一个连接关闭!还剩:(%d:%d)\n", GetCurrentConnection(), pContext->s);
+    CPF_UINT uConnID = OnConnectIDFind(pContext);
     OnConnectManagerSub(pContext);
+    if (m_pManagerServer)
+    {
+        m_pManagerServer->OnConnectionClosing(uConnID);
+    }
 }
 
 void CPF_IOCPServer::OnConnectionError(CIOCPContext *pContext, CIOCPBuffer *pBuffer, int nError)
 {
      //printf("一个连接发生错误:%d \n ", nError);
+    CPF_UINT uConnID = OnConnectIDFind(pContext);
     OnConnectManagerSub(pContext);
+    if (m_pManagerServer)
+    {
+        m_pManagerServer->OnConnectionError(uConnID,nError);
+    }
 }
 
 void CPF_IOCPServer::OnReadCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
@@ -89,21 +88,27 @@ void CPF_IOCPServer::OnReadCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffe
         return;
     }
 
-    /************************************************************************/
-    /* 包分析入口                                                           */
-    /************************************************************************/
-    if (m_pPacketParse)
+    if (m_pManagerServer)
     {//检测包,分析包
-        //m_pPacketParse->check
+        CPF_IBuff Ibuff;
+        Ibuff.m_pbuff = pBuffer->buff;
+        Ibuff.m_nLen = pBuffer->nLen;
+  
+       m_pManagerServer->OnReadCompleted(lConnectID, &Ibuff);
     }
-
-    //正确的包,进入模块分发接口
-
 }
 
 void CPF_IOCPServer::OnWriteCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer)
 {
     //printf("数据发送成功:%s\n",pBuffer);
+    if (m_pManagerServer)
+    {
+        CPF_UINT lConnectID = OnConnectIDFind(pContext);
+        CPF_IBuff IBuff;
+        IBuff.m_pbuff = pBuffer->buff;
+        IBuff.m_nLen = pBuffer->nLen;
+        m_pManagerServer->OnWriteCompleted(lConnectID, &IBuff);
+    }
 }
 
 void CPF_IOCPServer::SendToClient(CPF_UINT lConnectID, const char* pBuffer, const long lLen)
@@ -160,13 +165,17 @@ CIOCPContext * CPF_IOCPServer::OnConnectManagerSub(CIOCPContext *pContext)
 CIOCPContext * CPF_IOCPServer::OnConnectManagerFind(CPF_UINT ulConnectID)
 {
     EnterCriticalSection(&m_mapContextSection);
-    map<CPF_UINT, CIOCPContext*>::iterator itemM = m_mapIOCPContext.find(ulConnectID);
-    if (itemM != m_mapIOCPContext.end())
+    map<CPF_UINT, CIOCPContext*>::iterator itemM = m_mapIOCPContext.begin();
+    CIOCPContext* pContext = NULL;
+    for (; itemM != m_mapIOCPContext.end();itemM++)
     {
-        LeaveCriticalSection(&m_mapContextSection);
-        return NULL;
+        if (itemM->first == ulConnectID)
+        {
+            pContext = itemM->second;
+            break;
+        }
     }
-    CIOCPContext* pContext = itemM->second;
+
     LeaveCriticalSection(&m_mapContextSection);
 
     return pContext;

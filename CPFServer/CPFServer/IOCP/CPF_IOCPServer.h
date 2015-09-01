@@ -6,14 +6,14 @@
 #include <map>
 using namespace std;
 
-class CPF_DataPacketParse;
+class CPF_Base;
 class CPF_IOCPServer :public CIOCPServer
 { 
 public:
     CPF_IOCPServer();
     ~CPF_IOCPServer();
 
-    void InitModule();
+    void InitModule(CPF_Base *pBase);
     void UnitModule();
     /************************************************************************/
     /*// 事件通知函数                                                       */
@@ -41,9 +41,9 @@ protected:
     CPF_UINT      OnConnectIDFind(CIOCPContext *pContext);
 private:
     CPF_UINT                         m_iConnectID;//连接计数,也就是整个系统的连接ID
-    CPF_DataPacketParse              *m_pPacketParse;
     map<CPF_UINT, CIOCPContext *>    m_mapIOCPContext; //
     CRITICAL_SECTION                 m_mapContextSection;
+    CPF_Base                         *m_pManagerServer;
 };
 
 #endif __CPF_IOCPServer_H_

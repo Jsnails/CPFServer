@@ -54,6 +54,9 @@
     <ClCompile Include="DataPool\CPF_IManagerBUffer.cpp">
       <Filter>DataPool</Filter>
     </ClCompile>
+    <ClCompile Include="CPF_ManagerAllServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="iocp\CPF_IOCP.H">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="DataPool\CPF_IManagerBUffer.h">
       <Filter>DataPool</Filter>
+    </ClInclude>
+    <ClInclude Include="CPF_ManagerAllServer.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

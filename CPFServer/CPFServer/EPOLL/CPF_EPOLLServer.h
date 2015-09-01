@@ -2,15 +2,17 @@
 #define  __CPF_EPOLLServer_H_
 #include "CPF_EPOLL.h"
 #include "../common/CPF_typedef.h"
+#include <pthread.h>
 
 class CPF_DataPacketParse;
+class CPF_Base;
 class CPF_EPOLLServer : public CPF_EPOLL
 {
 public:
     CPF_EPOLLServer();
     ~CPF_EPOLLServer();
 
-    void InitModule();
+    void InitModule(CPF_Base *pBase);
     void UnitModule();
     /************************************************************************/
     /*// 事件通知函数                                                       */
@@ -35,10 +37,13 @@ protected:
     CPF_UINT      OnConnectManagerAdd(CPF_UINT ulConnectID);
     CPF_UINT      OnConnectManagerSub(CPF_UINT ulConnectID);
     CPF_UINT      OnConnectManagerFind(CPF_UINT ulConnectID);
+    CPF_UINT      OnConnectIDFind(CPF_UINT ulConnectID);
 private:
     CPF_UINT                         m_iConnectID;              //连接计数,也就是整个系统的连接ID
-    CPF_DataPacketParse              *m_pPacketParse;
-    map<CPF_UINT,CPF_UINT>           m_mapIOCPContext;
+    map<CPF_UINT,CPF_UINT>           m_mapEpollContext;
+    pthread_mutex_t                  m_mapEpollMutex;
+    CPF_Base                         *m_pManagerServer;
+
 };
 
 #endif //__CPF_EPOLLServer_H_
