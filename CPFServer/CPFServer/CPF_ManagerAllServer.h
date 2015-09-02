@@ -6,6 +6,7 @@
 #include "./EPOLL/CPF_EPOLLServer.h"
 #endif
 #include "common/CPF_Base.h"
+#include "ChildModule/CPF_ManagerChildModule.h"
 
 class CPF_DataPacketParse;
 class CPF_ManagerAllServer : public CPF_Base
@@ -42,6 +43,7 @@ private:
     CPF_EPOLLServer                  *m_pEpollServer;
 #endif
 
+    CPF_ManagerChildModule            m_childManagerModule;
 };
 
 #endif //__CPF_ManagerAllServer_H_

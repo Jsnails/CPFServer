@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChildModule\CPF_ManagerChildModule.cpp" />
     <ClCompile Include="common\CPF_Base.cpp" />
     <ClCompile Include="common\CPF_IBuff.cpp" />
     <ClCompile Include="common\CPF_ICommon.cpp" />
@@ -91,6 +92,7 @@
     <ClCompile Include="CPF_ParsePacketHander.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChildModule\CPF_ManagerChildModule.h" />
     <ClInclude Include="common\CPF_Base.h" />
     <ClInclude Include="common\CPF_IBuff.h" />
     <ClInclude Include="common\CPF_ICommon.h" />
