@@ -1,6 +1,5 @@
 #include "CPF_EPOLLServer.h"
 #include "../common/CPF_typedef.h"
-#include "../CPFDataPacketParse/CPF_DataPacketParse.h"
 #include "../common/CPF_IBuff.h"
 #include "../common/CPF_Base.h"
 #include <stdio.h>
@@ -36,7 +35,7 @@ void CPF_EPOLLServer::OnConnectionEstablished(CPF_UINT iConnectID, CPF_EPOLLBuff
     /************************************************************************/
     /* 用户权限验证入口                                                       */
     /************************************************************************/
-    if (m_pManagerServer)
+    if (m_pManagerServer && pbuff != NULL)
     {
         CPF_IBuff IBuff;
         IBuff.m_pbuff = pbuff->pBuff;
@@ -44,8 +43,12 @@ void CPF_EPOLLServer::OnConnectionEstablished(CPF_UINT iConnectID, CPF_EPOLLBuff
         bConnSuccss = m_pManagerServer->OnConnectionEstablished(m_iConnectID, &IBuff);
     }
 
+	if (pbuff == NULL)
+	{
+		bConnSuccss = true;
+	}
     /************************************************************************/
-    /* 有权限则加入用户管理,没有权限则关闭用户连接                                */
+    /* 有权限则加入用户管理,没有权限则关闭用户连接*/
     /************************************************************************/
     if (bConnSuccss)
     {
@@ -56,7 +59,7 @@ void CPF_EPOLLServer::OnConnectionEstablished(CPF_UINT iConnectID, CPF_EPOLLBuff
         OnCloseAconnect(iConnectID);
     }
 
-    SendText(iConnectID, pbuff->pBuff, pbuff->ilen);//返回用户第一次发送数据
+    //SendText(iConnectID, pbuff->pBuff, pbuff->ilen);//返回用户第一次发送数据
 }
 
 void CPF_EPOLLServer::OnConnectionClosing(CPF_UINT iConnectID, CPF_EPOLLBuffer *pbuff)
@@ -85,13 +88,13 @@ void CPF_EPOLLServer::OnReadCompleted(CPF_UINT iConnectID, CPF_EPOLLBuffer *pbuf
     {
         return;
     }
-
+	printf("recv data:%d\n", iConnectID);
     if (m_pManagerServer)
     {
         CPF_IBuff Ibuff;
         Ibuff.m_pbuff = pbuff->pBuff;
         Ibuff.m_nLen = pbuff->ilen;
-
+		printf("m_pManagerServer!=NULL");
        m_pManagerServer->OnReadCompleted(lConnectID, &Ibuff);
     }
 }
@@ -131,7 +134,8 @@ CPF_UINT CPF_EPOLLServer::OnConnectManagerSub(CPF_UINT ulConnectID)
 {
    CPF_UINT uConnID = 0;
     pthread_mutex_lock(&m_mapEpollMutex);
-   for(auto ItemF = m_mapEpollContext.begin();ItemF != m_mapEpollContext.end();ItemF++)
+    map<CPF_UINT,CPF_UINT>::iterator ItemF = m_mapEpollContext.begin();
+   for(;ItemF != m_mapEpollContext.end();ItemF++)
    {
         if(ItemF->second == ulConnectID)
         {
@@ -149,7 +153,8 @@ CPF_UINT CPF_EPOLLServer::OnConnectManagerFind(CPF_UINT ulConnectID)
 
     CPF_UINT uConnID = 0;
     pthread_mutex_lock(&m_mapEpollMutex);
-   for(auto ItemF = m_mapEpollContext.begin();ItemF != m_mapEpollContext.end();ItemF++)
+    map<CPF_UINT,CPF_UINT>::iterator ItemF = m_mapEpollContext.begin();
+   for(;ItemF != m_mapEpollContext.end();ItemF++)
    {
         if(ItemF->first == ulConnectID)
         {
@@ -165,7 +170,8 @@ CPF_UINT CPF_EPOLLServer::OnConnectIDFind(CPF_UINT ulConnectID)
 {
     CPF_UINT uConnID = 0;
     pthread_mutex_lock(&m_mapEpollMutex);
-    for(auto ItemF = m_mapEpollContext.begin();ItemF != m_mapEpollContext.end();ItemF++)
+    map<CPF_UINT,CPF_UINT>::iterator ItemF = m_mapEpollContext.begin();
+    for(;ItemF != m_mapEpollContext.end();ItemF++)
     {
         if(ItemF->second == ulConnectID)
         {
