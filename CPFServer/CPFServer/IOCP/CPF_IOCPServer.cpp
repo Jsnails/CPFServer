@@ -35,7 +35,7 @@ void CPF_IOCPServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer
     /************************************************************************/
     /* 用户权限验证入口                                                     */
     /************************************************************************/
-    if (m_pManagerServer)
+    if (m_pManagerServer && pBuffer!=NULL)
     {
         CPF_IBuff IBuff;
         IBuff.m_pbuff = pBuffer->buff;
@@ -55,7 +55,7 @@ void CPF_IOCPServer::OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer
         CloseAConnection(pContext);
     }
 
-    SendText(pContext, pBuffer->buff, pBuffer->nLen);//返回用户第一次发送数据
+    //SendText(pContext, pBuffer->buff, pBuffer->nLen);//返回用户第一次发送数据
 }
 
 void CPF_IOCPServer::OnConnectionClosing(CIOCPContext *pContext, CIOCPBuffer *pBuffer)

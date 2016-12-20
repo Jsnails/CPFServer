@@ -19,20 +19,20 @@ public:
     /*// 事件通知函数                                                       */
     /************************************************************************/
     // 建立了一个新的连接
-    void OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
+	virtual void OnConnectionEstablished(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
     // 一个连接关闭
-    void OnConnectionClosing(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
+	virtual void OnConnectionClosing(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
     // 在一个连接上发生了错误
-    void OnConnectionError(CIOCPContext *pContext, CIOCPBuffer *pBuffer, int nError);
+	virtual void OnConnectionError(CIOCPContext *pContext, CIOCPBuffer *pBuffer, int nError);
     // 一个连接上的读操作完成
-    void OnReadCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
+	virtual void OnReadCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
     // 一个连接上的写操作完成
-    void OnWriteCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
+	virtual void OnWriteCompleted(CIOCPContext *pContext, CIOCPBuffer *pBuffer);
 
     /************************************************************************/
     /*发送事件                                                              */
     /************************************************************************/
-    virtual void SendToClient(CPF_UINT lConnectID, const char* pBuffer, const long lLen);
+    void SendToClient(CPF_UINT lConnectID, const char* pBuffer, const long lLen);
 
 protected:
     CIOCPContext *OnConnectManagerAdd(CIOCPContext *pContext);
