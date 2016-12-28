@@ -46,6 +46,11 @@ struct CIOCPContext
 	CRITICAL_SECTION Lock;			// 保护这个结构
 
 	CIOCPContext *pNext;
+	CIOCPContext()
+	{
+		pOutOfOrderReads = NULL;
+		pNext = NULL;
+	}
 };
 
 
@@ -56,13 +61,13 @@ public:
 	~CIOCPServer();
 
 	// 开始服务
-	bool StartServer(int nPort = 2016, int nMaxConnections = 10000,int nMaxFreeBuffers = 10000, int nMaxFreeContexts = 10000, int nInitialReads = 4);
+	bool StartServer(int nPort = 2016, int nMaxConnections = 500,int nMaxFreeBuffers = 500, int nMaxFreeContexts = 500, int nInitialReads = 4);
 
 	// 停止服务
 	void Shutdown();
 
 	// 关闭一个连接和关闭所有连接
-	void CloseAConnection(CIOCPContext *pContext);
+	void CloseAConnection(SOCKET s);
 	void CloseAllConnections();	
 
 	// 取得当前的连接数量
@@ -70,7 +75,7 @@ public:
 
 	// 向指定客户发送文本
 	bool SendText(CIOCPContext *pContext, char *pszText, int nLen); 
-
+	bool SendClientText(SOCKET s, char *pszText, int nLen);
 protected:
 
 	// 申请和释放缓冲区对象
