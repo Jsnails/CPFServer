@@ -167,12 +167,13 @@ void CIOCPServer::ReleaseContext(CIOCPContext *pContext)
 	{
 		return;
 	}
-	CIOCPContext *pContextnext = pContext->pNext;
+
 	if (pContext->s != INVALID_SOCKET)
 	{
 		::closesocket(pContext->s);
 		pContext->s = INVALID_SOCKET;
 	}
+
 	// 首先释放（如果有的话）此套节字上的没有按顺序完成的读I/O的缓冲区
 	CIOCPBuffer *pNext;
 	while(pContext->pOutOfOrderReads != NULL)
@@ -181,16 +182,8 @@ void CIOCPServer::ReleaseContext(CIOCPContext *pContext)
 		ReleaseBuffer(pContext->pOutOfOrderReads);
 		pContext->pOutOfOrderReads = pNext;
 	}
-	
-	::DeleteCriticalSection(&(pContext->Lock));
-	::HeapFree(::GetProcessHeap(), 0, pContext);
-	m_nCurrentConnection--;
-	pContext = pContextnext;
 
-	::EnterCriticalSection(&m_ConnectionListLock);
-	m_pConnectionList = pContext;
-	::LeaveCriticalSection(&m_ConnectionListLock);
-#if 0
+#if 1
 	::EnterCriticalSection(&m_FreeContextListLock);
 	if(m_nFreeContextCount <= m_nMaxFreeContexts) // 添加到空闲列表
 	{
@@ -211,6 +204,7 @@ void CIOCPServer::ReleaseContext(CIOCPContext *pContext)
 	{
 		::DeleteCriticalSection(&(pContext->Lock));
 		::HeapFree(::GetProcessHeap(), 0, pContext);
+		m_nCurrentConnection--;
 	}
 	::LeaveCriticalSection(&m_FreeContextListLock);
 #endif
@@ -293,7 +287,7 @@ void CIOCPServer::CloseAConnection(SOCKET s)
 	__dbg_printf("\n**************colse socket:%d.**************\n",s);
 	char szError[64];
 	sprintf(szError, "CloseAConnection():%d", s);
-	printf("CloseAConnection():%d", s);
+	printf("\nCloseAConnection():%d\n", s);
 	CMylog4cPlus::GetInstance()->WriteToLogFile(LOG_ERROR, szError);
 
 	// 首先从列表中移除要关闭的连接
@@ -802,15 +796,13 @@ DWORD WINAPI CIOCPServer::_WorkerThreadProc(LPVOID lpParam)
 
 		if(dwTrans == -1) // 用户通知退出
 		{
-#ifdef _DEBUG
-			//::OutputDebugString("	WorkerThread 退出 \n");
-#endif // _DEBUG
+			printf("\n*********_WorkerThreadProc exit.*******\n");
 			::ExitThread(0);
 		}
 
 		pBuffer = CONTAINING_RECORD(lpol, CIOCPBuffer, ol);
 		int nError = NO_ERROR;
-		if(!bOK)						// 在此套节字上有错误发生
+		if(!bOK)// 在此套节字上有错误发生
 		{
 			SOCKET s;
 			if(pBuffer->nOperation == OP_ACCEPT)
@@ -830,6 +822,7 @@ DWORD WINAPI CIOCPServer::_WorkerThreadProc(LPVOID lpParam)
 				__dbg_printf("*********检查到监听套节字:%d.上发生错误:%d.**********\n",s,nError);
 			}
 		}
+
 		pThis->HandleIO(dwKey, pBuffer, dwTrans, nError);
 	}
 
@@ -871,6 +864,7 @@ void CIOCPServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int
 			if(pContext->nOutstandingRecv == 0 && pContext->nOutstandingSend == 0)
 			{		
 				ReleaseContext(pContext);
+				//CloseAConnection(pContext->s);
 			}
 			// 释放已关闭套节字的未决I/O
 			ReleaseBuffer(pBuffer);	
@@ -904,6 +898,7 @@ void CIOCPServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int
 			if(pContext->nOutstandingRecv == 0 && pContext->nOutstandingSend == 0)
 			{		
 				ReleaseContext(pContext);
+				//CloseAConnection(pContext->s);
 			}
 #ifdef _DEBUG
 			//::OutputDebugString("	检查到客户套节字上发生错误 \n");
@@ -986,6 +981,7 @@ void CIOCPServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int
 					__dbg_printf("HandleIO()->CloseAConnection(2).\n");
 					CMylog4cPlus::GetInstance()->WriteToLogFile(LOG_INFO, "HandleIO()->CloseAConnection(2).");
 					ReleaseContext(pClient);
+					//CloseAConnection(pClient->s);
 				}
 			}
 			else
@@ -1021,6 +1017,7 @@ void CIOCPServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int
 			if(pContext->nOutstandingRecv == 0 && pContext->nOutstandingSend == 0)
 			{		
 				ReleaseContext(pContext);
+				//CloseAConnection(pContext->s);
 			}
 			ReleaseBuffer(pBuffer);	
 		}
@@ -1065,6 +1062,7 @@ void CIOCPServer::HandleIO(DWORD dwKey, CIOCPBuffer *pBuffer, DWORD dwTrans, int
 			if(pContext->nOutstandingRecv == 0 && pContext->nOutstandingSend == 0)
 			{		
 				ReleaseContext(pContext);
+				//CloseAConnection(pContext->s);
 			}
 			ReleaseBuffer(pBuffer);	
 		}

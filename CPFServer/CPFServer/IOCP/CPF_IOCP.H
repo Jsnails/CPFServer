@@ -61,7 +61,7 @@ public:
 	~CIOCPServer();
 
 	// 开始服务
-	bool StartServer(int nPort = 2016, int nMaxConnections = 500,int nMaxFreeBuffers = 500, int nMaxFreeContexts = 500, int nInitialReads = 4);
+	bool StartServer(int nPort = 2016, int nMaxConnections = 500,int nMaxFreeBuffers = 10, int nMaxFreeContexts = 0, int nInitialReads = 4);
 
 	// 停止服务
 	void Shutdown();
